@@ -10,7 +10,18 @@ services:
     image: mysql
     ports:
       - 3306:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=abc123.
+    env_file:
+      - .env_bd
     volumes:
-      - ./datos:var/lib/mysql
+      - datosbd:/var/lib/mysql
+      # - .:proba
+    secrets:
+      - db_root_password
+      - db_password
+volumes:
+  datosbd:
+secrets:
+  db_password:
+    file: db_password.txt
+  db_root_password:
+    file: db_root_password.txt
